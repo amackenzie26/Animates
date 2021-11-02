@@ -1,0 +1,8 @@
+<ol class="project-list">
+    {{!-- projects array --}}
+    {{#each projects as |project|}}
+        <ul>
+            {{> project-info project}}
+        </ul>
+    {{/each}}
+</ol>

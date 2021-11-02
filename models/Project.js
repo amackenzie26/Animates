@@ -19,7 +19,7 @@ Project.init(
             type: DataTypes.STRING,
         },
         date_created: {
-            type: DataType.date_created,
+            type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: DataTypes.NOW,
         },
@@ -40,4 +40,4 @@ Project.init(
     }
 );
 
-module.exports = Projects;
+module.exports = Project;

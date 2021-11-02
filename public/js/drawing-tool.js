@@ -74,3 +74,9 @@ function endDraw(event) {
 }
 
 drawSpace.on('mousedown', startDraw);
+
+// Clear button
+clearBtn.on('click', (event) => {
+    two.clear();
+    two.update();
+});

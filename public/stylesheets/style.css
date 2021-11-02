@@ -1,0 +1,96 @@
+:root {
+    --primary-color: #FF6400 ;
+    --secondary-color: #108AC4 ;
+    --primary-hover: white;
+}
+
+* {
+    box-sizing: border-box;
+    color: white;
+}
+
+body, html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: lightgray;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: color .1s;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.homepage {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin: 20px;
+}
+
+a:hover, .blog-title {
+    color: var(--primary-hover);
+}
+
+.title {
+    color: var(--primary-color);
+    font-size: 25px;
+    margin: 25px;
+    padding: 10px;
+}
+
+button {
+    background-color: var(--primary-color);
+    border: 0;
+    padding: 1%;
+    color: var(--primary-color);
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover{
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+header {
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1%;
+}
+
+.wrapper {
+    width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding: 2% 4%;
+}
+
+.btn-no-style {
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 100%;
+    font-weight: bold;
+    transition: color .1s;
+}
+
+.btn-no-style:hover {
+    background: none;
+    color: var(--primary-color);
+}

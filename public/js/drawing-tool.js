@@ -4,6 +4,8 @@ const linewidth = $("#linewidth");
 const clearBtn = $("#clear");
 const undoBtn = $("#undo");
 const redoBtn = $("#redo");
+const framesContainer = $("#frames");
+const addFrameBtn = $("#add-frame");
 
 // Stack
 let undoHistory = [];
@@ -14,7 +16,7 @@ const two = new Two({
     height: drawSpace.height()
 });
 const frames = [];
-const curFrame = 0;
+let curFrame = 0;
 let line = null;
 
 // console.log(drawSpace[0]);
@@ -24,32 +26,23 @@ two.appendTo(drawSpace[0]); // Get's the DOM Element from the jquery object
 two.add(frames[0]);
 
 function startDraw(event) {
-    // Starts drawing a line 
-    console.log('starting draw');
-    // Set initial positio
-    // console.log(lastPosition);
+
+    // Set initial position
     lastPosition.set(event.clientX, event.clientY);
 
     // Add event listeners
     drawSpace.mouseup(endDraw);
-    // drawSpace.mouseout(endDraw);
+    // drawSpace.mouseout(endDraw); // Doesn't work, triggers when going over another line for whatever reason.
     drawSpace.mousemove(draw);
 }
 
 function draw(event) {
-    // Draws the line to the page
-    // TODO
-    // console.log('drawing...');
-    // console.log(event.clientX, event.clientY);
-
+    // Get the current position as a Two.Anchor
     const curPosition = new Two.Anchor(event.clientX, event.clientY);
-    // console.log(lastPosition, curPosition);
     
-    
-
+    // If a line hasn't been created, start one. otherwise, add the new position to the line.
     if(!line) {
-        console.log('starting new line');
-        line = two.makeCurve([lastPosition.clone(), curPosition.clone()], true);
+        line = two.makeCurve([lastPosition.clone(), curPosition.clone()], true); // Make sure to clone these so that the array has no shallow copies
         line.noFill();
         line.stroke = '#333';
         line.linewidth = linewidth.val();
@@ -63,6 +56,9 @@ function draw(event) {
 
         // Sets the end of each line to be a half circle.
         line.cap = "round";
+
+        // Add this line to the current frame
+        frames[curFrame].add(line);
         
         // Clear the undo history
         undoHistory = [];
@@ -85,21 +81,44 @@ function endDraw(event) {
     line = null;
 }
 
+function addFrame() {
+    const frame = new Two.Group();
+    frames.push(frame);
+    curFrame = frames.length-1;
+    console.log('Adding a frame');
+    two.add(frame);
+    // TODO - update display
+
+    // Add new frame button to the page
+    const newFrameBtn = $("<button>");
+    newFrameBtn.addClass("frame-button");
+    newFrameBtn.attr("data-frame-id", curFrame);
+    // TODO - add delete frame button
+    // TODO - add frame event listeners
+
+    framesContainer.append(newFrameBtn);
+}
+
 drawSpace.on('mousedown', startDraw);
 
 // Clear button
 clearBtn.on('click', (event) => {
     const confirmed = confirm("Are you sure you want to clear your frame?");
     if(confirmed) {
-        two.clear();
+        // Remove all children from the current group
+        while(frames[curFrame].children.length > 0) {
+            frames[curFrame].children.pop();
+        }
+        // Clear undo history
+        undoHistory = [];
         two.update();
     }
 });
 
 // Undo button
 undoBtn.on('click', (event) => {
-    if(two.scene.children.length > 1) {
-        const undid = two.scene.children.pop();
+    if(frames[curFrame].children.length > 0) {
+        const undid = frames[curFrame].children.pop();
         console.log(undid);
         undoHistory.push(undid);
         two.update();
@@ -110,7 +129,10 @@ undoBtn.on('click', (event) => {
 redoBtn.on('click', (event) => {
     const redid = undoHistory.pop();
     if(redid) {
-        two.scene.children.push(redid);
+        frames[curFrame].children.push(redid);
         two.update();
     }
 });
+
+// Add frame button
+addFrameBtn.on('click', addFrame);

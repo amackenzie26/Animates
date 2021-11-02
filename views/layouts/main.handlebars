@@ -4,35 +4,56 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="AniMates" content="AniMates a Flipbook Social Site">
         <title>AniMates</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="/stylesheets/style.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
     </head>
 
     <body>
-        <div class="wrapper">
-            <header>
-                <h1>
-                    <p class="title">AniMates</p>
-                </h1>
-                <nav>
+        <div class="wrapper d-flex min-vh-100">
+            <ul class="nav flex-column">
+                <li>
+                    <img id="logo" src="../assets/animateStatic.png" alt="AniMates logo">
+                </li>
                     {{#if loggedIn}}
-                    <a href="/" class="homepage">Home</a>
-                    <a href="/" class="explorepage">Explore</a>
-                    <a href="/" class="myprofilepage">My Profile</a>
+                <li class="nav-item">
+                    <a href="/" class="homepage nav-item">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="explorepage nav-item">Explore</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="myprofilepage nav-item">My Profile</a>
+                </li>
+                <li class="nav-item">
                     <button id="logout" class="btn-no-style">Logout</button>
-                    {{else}}
-                    <a href="/" class="homepage">Home</a>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a href="/" class="homepage nav-item">Home</a>
+                </li>
+                <li class="nav-item">
                     <a href="/login">Login</a>
-                    {{/if}}
+                </li>    
+                {{/if}}
                 </nav>
             </header>
 
-            <main>
+            <main class="container">
                 {{{ body }}}
             </main>
 
         </div>
+            
+            {{!-- external scripts --}}
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+            {{!-- project script --}}
             {{!-- {{#if loggedIn}}
                 <script src="#link to logout js"></script>
             {{/if}} --}}

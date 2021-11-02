@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS animates_db;
+
+CREATE DATABASE animates_db;

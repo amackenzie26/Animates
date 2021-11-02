@@ -2,6 +2,12 @@
 const drawSpace = $("#draw-space");
 const linewidth = $("#linewidth");
 const clearBtn = $("#clear");
+const undoBtn = $("#undo");
+const redoBtn = $("#redo");
+
+// Stack
+let undoHistory = [];
+
 const lastPosition = new Two.Anchor(0, 0);
 const two = new Two({
     width: drawSpace.width(),
@@ -48,12 +54,18 @@ function draw(event) {
         line.stroke = '#333';
         line.linewidth = linewidth.val();
         line.translation.clear();
+        // Adding an offset to account for a problem with drawing.
         line.translation.set(-10, -35);
+
+        // For some reason two.js adds 2 vertices near 0,0 by default to the start of each curve. This removes those.
         line.vertices.shift();
         line.vertices.shift();
+
+        // Sets the end of each line to be a half circle.
         line.cap = "round";
-        // line.vertices.shift();
-        // two.add(line);
+        
+        // Clear the undo history
+        undoHistory = [];
     } else {
         line.vertices.push(curPosition);
     }
@@ -77,6 +89,28 @@ drawSpace.on('mousedown', startDraw);
 
 // Clear button
 clearBtn.on('click', (event) => {
-    two.clear();
-    two.update();
+    const confirmed = confirm("Are you sure you want to clear your frame?");
+    if(confirmed) {
+        two.clear();
+        two.update();
+    }
+});
+
+// Undo button
+undoBtn.on('click', (event) => {
+    if(two.scene.children.length > 1) {
+        const undid = two.scene.children.pop();
+        console.log(undid);
+        undoHistory.push(undid);
+        two.update();
+    }
+});
+
+// Redo button
+redoBtn.on('click', (event) => {
+    const redid = undoHistory.pop();
+    if(redid) {
+        two.scene.children.push(redid);
+        two.update();
+    }
 });

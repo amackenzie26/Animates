@@ -1,5 +1,5 @@
 const User = require('./User');
-const Project = require('./Project');
+const Post = require('./Post');
 const Animation = require('./Animation');
 
 User.hasMany(Project, {
@@ -7,7 +7,7 @@ User.hasMany(Project, {
     onDelete: 'CASCADE'
 });
 
-Project.belongsTo(User, {
+Post.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
@@ -20,13 +20,13 @@ Animation.belongsTo(User, {
     onDelete: 'CASCADE'
 });
 
-Project.hasOne(Animation, {
+Post.hasOne(Animation, {
     foreignKey: 'animation_id'
 });
 
-Animation.belongsTo(Project, {
+Animation.belongsTo(Post, {
     foreignKey: 'animation_id'
 });
 
-module.exports = { User, Project, Animation };
+module.exports = { User, Post, Animation };
 

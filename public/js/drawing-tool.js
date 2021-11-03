@@ -48,7 +48,7 @@ function draw(event) {
     if(!line) {
         line = two.makeCurve([lastPosition.clone(), curPosition.clone()], true); // Make sure to clone these so that the array has no shallow copies
         line.noFill();
-        line.stroke = '#333';
+        line.stroke = '#000';
         line.linewidth = linewidth.val();
         line.translation.clear();
         // Adding an offset to account for a problem with drawing.
@@ -175,5 +175,11 @@ function stopAnimation() {
     animation = null;
 }
 
+// Set play and stop button controls
 playBtn.on('click', startAnimation);
 stopBtn.on('click', stopAnimation);
+
+// Save Animation
+function save() {
+    // TODO
+}

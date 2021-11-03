@@ -37,5 +37,6 @@ async function saveAnimation(data) {
 
 module.exports = {
     openFile,
-    saveAnimation
+    saveAnimation,
+    saveFile
 }

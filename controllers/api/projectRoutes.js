@@ -3,7 +3,7 @@ const { Project } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 
-//GET all project
+//GET all projects using '/api/projects' 
 router.get('/', (req, res) => {
     Project.findAll({
         attributes: [
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
     })
 })
 
-//GET single project by id
+//GET single project by id '/api/projects/:id'
 router.get('/:id', (req, res) => {
     Project.findOne({
         where: {

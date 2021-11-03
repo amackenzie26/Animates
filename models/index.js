@@ -2,7 +2,7 @@ const User = require('./User');
 const Post = require('./Post');
 const Animation = require('./Animation');
 
-User.hasMany(Project, {
+User.hasMany(Post, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
 });
@@ -20,13 +20,13 @@ Animation.belongsTo(User, {
     onDelete: 'CASCADE'
 });
 
-Post.hasOne(Animation, {
-    foreignKey: 'animation_id'
-});
+// Post.hasOne(Animation, {
+//     foreignKey: 'animation_id'
+// });
 
-Animation.belongsTo(Post, {
-    foreignKey: 'animation_id'
-});
+// Animation.belongsTo(Post, {
+//     foreignKey: 'animation_id'
+// });
 
 module.exports = { User, Post, Animation };
 

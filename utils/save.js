@@ -1,9 +1,10 @@
 const fs = require('fs');
 const uuid = require('uuid');
+const path = require('path');
 
-async function saveFile(path, data) {
+async function saveFile(pathname, data) {
     try {
-        fs.writeFile(path, data);
+        fs.writeFile(pathname, data, ()=>{});
         return true;
     } catch (err) {
         console.log(err);
@@ -13,7 +14,7 @@ async function saveFile(path, data) {
 
 async function openFile(path) {
     try {
-        const data = await fs.openFile(path); 
+        const data = await fs.openFile(path, ()=>{}); 
         return data;
     } catch (err) {
         console.log(err);
@@ -24,19 +25,29 @@ async function openFile(path) {
 // Generates a unique name
 async function saveAnimation(data) {
     // Generate a unique filename
-    const filename = uuid.v1();
+    const filename = uuid.v1() + ".json";
 
     // Generate a file path for this (normalize takes out the ..)
-    const path = path.normalize( path.join(__dirname, '../public/assets') );
-    if(await saveFile(path, data)) {
-        return path;
+    const pathname = path.normalize( path.join(__dirname, '../public/assets', filename) ) ;
+    console.log(pathname);
+    if(await saveFile(pathname, data)) {
+        return pathname;
     } else {
         throw Error('Failed to save animation!');
     }
 }
 
+async function deleteFile(path) {
+    return await fs.unlink(path, ()=>{});
+}
+
 module.exports = {
     openFile,
     saveAnimation,
-    saveFile
+    saveFile,
+    deleteFile
 }
+
+// saveAnimation("hi ho, hi ho, it's off to work we go")
+//     .then(pathname => saveFile(pathname, 'ho hi, ho hi, off its work to go we'))
+//     .then(response => console.log(response));

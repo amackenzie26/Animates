@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { openFile, saveAnimation, saveFile } = require('../../utils/save');
+const { openFile, saveAnimation, saveFile, deleteFile } = require('../../utils/save');
 const { Animation, User } = require('../../models');
 
 // GET all animations
@@ -41,8 +41,9 @@ router.post('/', async (req, res) => {
             res.status(400).json({response: "Request body must contain animationData and author_id"});
             return;
         }
+        console.log("saving post...");
         const path = await saveAnimation(req.body.animationData);
-
+        console.log(path);
         const animation = Animation.build({
             path: path,
             author_id: req.body.author_id
@@ -61,11 +62,14 @@ router.put('/:id', async (req, res) => {
             res.status(400).json({response: "Request body must contain animation data"});
             return;
         }
-        const animation = Animation.findByPk(req.params.id);
+        const animation = await Animation.findByPk(req.params.id);
         if(!animation) {
             res.status(404).json({response: "Animation not found"});
             return;
         }
+        // This will delete the file even if the save fails, which is potentially dangerous
+        console.log(animation.path);
+        await deleteFile(animation.path);
         const saveSuccessful = await saveFile(animation.path, req.body.animationData);
         if(!saveSuccessful) {
             throw Error('Save not successful');
@@ -78,3 +82,19 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE animation
+router.delete('/:id', async (req, res) => {
+    try {
+        const animation = await Animation.findByPk(req.params.id);
+        if(!animation) {
+            res.status(404).json({response: "animation not found"});
+            return;
+        }
+        await deleteFile(animation.path);
+        await animation.destroy();
+        res.status(200).json({response: "Animation deleted successfully"});
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+module.exports = router;

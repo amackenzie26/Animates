@@ -1,7 +1,6 @@
 const router = require('express').Router();
-const uuid = require()
-const fs = require('fs');
-const {Animation, User} = require('../../models');
+const { openFile, saveAnimation } = require('../../utils/save');
+const { Animation, User } = require('../../models');
 
 // GET all animations
 router.get('/', async (req, res) => {
@@ -32,10 +31,26 @@ router.get('/:id', async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-})
+});
 
 // POST animation (given stringified JSON from view in body)
+router.post('/', async (req, res) => {
+    try {
+        if(!req.body.animationData || !req.body.author_id) {
+            res.status(400).json({response: "Request body must contain animationData and author_id"});
+        }
+        const path = await saveAnimation(req.body.animationData);
 
+        const animation = Animation.build({
+            path: path,
+            author_id: req.body.author_id
+        });
+        await animation.save();
+        res.status(200).json({response: "New animation saved successfully."});
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 // PUT (update) animation
 

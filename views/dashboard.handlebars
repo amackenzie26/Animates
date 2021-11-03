@@ -1,43 +1,90 @@
-<div class="row">
-  <div class="col-auto">
-    <h2>Welcome, {{name}}!</h2>
-  </div>
-</div>
-
-<div class="row mt-4">
-  <div class="col-md-6">
-    <h3>Post Animation:</h3>
-
-    <form class="form new-post-form">
-      <div class="form-group">
-        <label for="project-name">Animation Title:</label>
-        <input class="form-input" type="text" id="post-name" name="post-name" />
-      <div class="form-group">
-        <label for="post-desc">Content:</label>
-        {{!-- {{#post post.Animation}} --}}
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Post</button>
-      </div>
-    </form>
-  </div>
-
-  {{#if posts.length}}
-  <div class="col-md-6 project-list">
-    <h3>Current Posts:</h3>
-
-    {{#each post as |post|}}
-    <div class="row mb-2">
-      <div class="col-md-8">
-        <h4><a href="/project/{{post.id}}">{{post.name}}</a></h4>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-  {{/if}}
-</div>
 
 <script src="../public/dashboard.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="AniMates" content="AniMates a Flipbook Social Site">
+        <title>AniMates</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        
+    </head>
+
+    <body>
+
+        <div class="wrapper d-flex min-vh-100">
+            {{!-- NAV BAR ON LEFT --}}
+            <ul class="nav flex-column">
+                <li>
+                    <img id="logo" src="/assets/animateStatic.png" alt="AniMates logo">
+                </li>
+                    {{#if loggedIn}}
+                <li class="nav-item">
+                    <a href="/" class="homepage nav-item">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="explorepage nav-item">Explore</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="myprofilepage nav-item">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <button id="logout" class="btn-no-style">Logout</button>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a href="/" class="homepage nav-item">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/login">Login</a>
+                </li>    
+                {{/if}}
+                </nav>
+            </header>
+
+            <main class="container">
+                <div class="row">
+  <div class="col-auto">
+                        <h2>Welcome, {{name}}!</h2>
+                      </div>
+                    </div>
+
+                    <div class="row mt-4">
+                      <div class="col-md-6">
+
+                        <h3>My Posts:</h3>
+
+                        {{#each post as |post|}}
+                        <div class="row mb-2">
+                          <div class="col-md-8">
+                            <h4><a href="/post/{{post.id}}">{{post.name}}</a></h4>
+                          </div>
+                          <div class="col-md-4">
+                            <button class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
+                          </div>
+                        </div>
+                        {{/each}}
+                      </div>
+                      {{/if}}
+                    </div>
+            </main>
+
+        </div>
+            
+            {{!-- external scripts --}}
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+            {{!-- project script --}}
+            {{!-- {{#if loggedIn}}
+                <script src="#link to logout js"></script>
+            {{/if}} --}}
+    </body>
+
+</html>

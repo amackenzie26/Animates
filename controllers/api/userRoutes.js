@@ -45,7 +45,12 @@ router.get('/:id', (req, res) => {
 //CREATE new User
 router.post('/', async (req, res) => {
     try {
-        const userData = await User.create(req.body);
+        const salts = await brcrypt.genSalt(10)
+        const newPw = await brcrypt.hash(req.body.password, salt)
+        const userData = await User.findByIdAndUpdate(req.params.user_id, {
+            username: req.body.username,
+            password: newPw
+        })
 
         req.session.save(() => {
             req.session.user_id = userData.id;
@@ -54,7 +59,7 @@ router.post('/', async (req, res) => {
             res.status(200).json(userData);
         });
     } catch (err) {
-        res.status(400).json(err);
+        res.status(500).json(err);
     }
 });
 

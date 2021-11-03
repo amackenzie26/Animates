@@ -1,0 +1,20 @@
+{{!-- display projects --}}
+{{> project-info project}}
+{{!-- display form and comments --}}
+{{#if loggedIn}}
+<form class="comment-form">
+    <div>
+        <textarea name="comment-body"></textarea>
+    </div>
+
+    <div>
+        <button type="submit">Add Comment</button>
+    </div>
+</form>
+{{/if}}
+
+{{!-- {{> comments project.comments}}
+
+{{#if loggedIn}}
+<script src="/public/javascript/comment.js"></script>
+{{/if}} --}}

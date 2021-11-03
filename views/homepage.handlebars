@@ -6,18 +6,46 @@
         </ul>
     {{/each}}
 </ol>
-
-<div class="login">
-    <div class="row justify-content-center">
-        <div class="col-lg-7" style="margin-top: 50px;">
-            <div class="card">
-                <h2 class="card-title">Please log in to your account</h2>
-                <input class="" id="username" type="text">
-                <input class="" id="password" type="text">
-                <button class="" id="loginbtn" type="submit">
-                    <span class="">Log in</span>
-                </button>
+{{!-- login modal --}}
+<section id="loginModal" class="loginModal">
+    <div class="modal-content">
+        <form class="login-form">
+            <div>
+                <label for="username-login">Username:</label>
+                <input type="text" id="username-login" />
             </div>
-        </div>
+            <div>
+                <label for="password-login">Password:</label>
+                <input type="password" id="password-login" />
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+            <div class="sign-up">
+                <button id="signup" type="submit">SIGN UP HERE</button>
+            </div>
+        </form>
     </div>
-</div>
+</section>
+{{!-- signup modal --}}
+<section id="signupModal" class="signupModal">
+    <div class="modal-content">
+        <form class="login-form">
+            <div>
+                <label for="username-login">Username:</label>
+                <input type="text" id="username-login" />
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" />
+            </div>
+            <div>
+                <label for="password-login">Password:</label>
+                <input type="password" id="password-login" />
+            </div>
+            <div>
+                <button id="login" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</section>

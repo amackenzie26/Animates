@@ -1,9 +1,9 @@
-const { Project } = require('../models');
+const { Post } = require('../models');
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 
 router.get('/', (req, res) => {
-    Project.findAll({
+    Post.findAll({
         attributes: [
             'id',
             'name',

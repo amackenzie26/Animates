@@ -1,6 +1,7 @@
 const User = require('./User');
 const Post = require('./Post');
 const Animation = require('./Animation');
+const Comment = require('./Comment');
 
 User.hasMany(Post, {
     foreignKey: 'user_id',
@@ -28,5 +29,26 @@ Animation.belongsTo(User, {
 //     foreignKey: 'animation_id'
 // });
 
-module.exports = { User, Post, Animation };
+//a comment can only belong to one user
+Comment.belongsTo(User, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+});
+//a comment can only belong to one post
+Comment.belongsTo(Post, {
+    foreignKey: 'post_id',
+    onDelete: 'CASCADE'
+});
+//a user can make many comments
+User.hasMany(Comment, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+});
+//a post has many comments
+Post.hasMany(Comment, {
+    foreignKey: 'post_id',
+    onDelete: 'CASCADE'
+})
+
+module.exports = { User, Post, Animation, Comment };
 

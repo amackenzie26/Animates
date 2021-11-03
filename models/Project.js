@@ -30,6 +30,13 @@ Project.init(
                 key: 'id',
             },
         },
+        animation_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'animation',
+                key: 'id'
+            }
+        }
     },
     {
         sequelize,

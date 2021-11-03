@@ -106,8 +106,9 @@ function addFrame() {
 
     // add frame event listeners
     newFrameBtn.on('click', (event) => {
-        const id = event.target.dataset.frame;
+        const id = parseInt(event.target.dataset.frame, 10);
         presentFrame(id);
+        curFrame = id;
     });
     
 }
@@ -161,7 +162,9 @@ addFrameBtn.on('click', addFrame);
 
 // Add animation loop
 function startAnimation() {
+    console.log('starting animation...')
     if(!animation) {
+        console.log('setting animation interval...');
         const framerate = Math.floor(1000.0 / FPS.val());
         animation = setInterval(() => {
             curFrame += 1;
@@ -204,3 +207,7 @@ async function save() {
 }
 
 saveBtn.on('click', save);
+
+async function load(animationData) {
+    
+}

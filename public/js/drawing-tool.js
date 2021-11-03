@@ -6,6 +6,10 @@ const undoBtn = $("#undo");
 const redoBtn = $("#redo");
 const framesContainer = $("#frames");
 const addFrameBtn = $("#add-frame");
+const playBtn = $("#play");
+const stopBtn = $("#stop");
+const FPS = $("#fps");
+let animation;
 
 // Stack
 let undoHistory = [];
@@ -70,14 +74,12 @@ function draw(event) {
 }
 
 function endDraw(event) {
-    console.log('ending draw');
     // Remove event listeners
-    drawSpace.unbind('mouseup');
-    drawSpace.unbind('mouseout');
-    drawSpace.unbind('mousemove');
+    drawSpace.off('mouseup');
+    // drawSpace.off('mouseout');
+    drawSpace.off('mousemove');
 
-    // Add the line to the page
-    console.log(line);
+    // set the line to null so a new line is created on the next click
     line = null;
 }
 
@@ -96,16 +98,16 @@ function addFrame() {
     const newFrameBtn = $("<button>");
     newFrameBtn.addClass("frame-button");
     newFrameBtn.attr("data-frame", curFrame);
+    framesContainer.append(newFrameBtn);
+
     // TODO - add delete frame button
 
     // add frame event listeners
     newFrameBtn.on('click', (event) => {
         const id = event.target.dataset.frame;
-        console.log(id);
         presentFrame(id);
     });
-
-    framesContainer.append(newFrameBtn);
+    
 }
 
 function presentFrame(i) {
@@ -154,3 +156,24 @@ redoBtn.on('click', (event) => {
 
 // Add frame button
 addFrameBtn.on('click', addFrame);
+
+// Add animation loop
+function startAnimation() {
+    if(!animation) {
+        const framerate = Math.floor(1000.0 / FPS.val());
+        animation = setInterval(() => {
+            curFrame += 1;
+            if(curFrame === frames.length) curFrame = 0;
+            presentFrame(curFrame);
+        }, framerate);
+    }
+    
+}
+
+function stopAnimation() {
+    clearInterval(animation);
+    animation = null;
+}
+
+playBtn.on('click', startAnimation);
+stopBtn.on('click', stopAnimation);

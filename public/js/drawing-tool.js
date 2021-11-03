@@ -20,7 +20,7 @@ let curFrame = 0;
 let line = null;
 
 // console.log(drawSpace[0]);
-frames.push(new Two.Group());
+addFrame();
 
 two.appendTo(drawSpace[0]); // Get's the DOM Element from the jquery object
 two.add(frames[0]);
@@ -82,21 +82,39 @@ function endDraw(event) {
 }
 
 function addFrame() {
+    // Create the new frame and add it to the scene
     const frame = new Two.Group();
     frames.push(frame);
     curFrame = frames.length-1;
     console.log('Adding a frame');
     two.add(frame);
-    // TODO - update display
+
+    // update display
+    presentFrame(curFrame);
 
     // Add new frame button to the page
     const newFrameBtn = $("<button>");
     newFrameBtn.addClass("frame-button");
-    newFrameBtn.attr("data-frame-id", curFrame);
+    newFrameBtn.attr("data-frame", curFrame);
     // TODO - add delete frame button
-    // TODO - add frame event listeners
+
+    // add frame event listeners
+    newFrameBtn.on('click', (event) => {
+        const id = event.target.dataset.frame;
+        console.log(id);
+        presentFrame(id);
+    });
 
     framesContainer.append(newFrameBtn);
+}
+
+function presentFrame(i) {
+    frames.forEach((f) => {
+        f.visible = false;
+    });
+    frames[i].visible = true;
+
+    two.update();
 }
 
 drawSpace.on('mousedown', startDraw);

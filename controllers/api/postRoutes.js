@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { Project } = require('../../models');
+const { Post } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 
-//GET all projects using '/api/projects' 
+//GET all posts using '/api/posts' 
 router.get('/', (req, res) => {
-    Project.findAll({
+    Post.findAll({
         attributes: [
             'id',
             'name',
@@ -21,9 +21,9 @@ router.get('/', (req, res) => {
     })
 })
 
-//GET single project by id '/api/projects/:id'
+//GET single post by id '/api/posts/:id'
 router.get('/:id', (req, res) => {
-    Project.findOne({
+    Post.findOne({
         where: {
             id: req.params.id
         },
@@ -37,7 +37,7 @@ router.get('/:id', (req, res) => {
     })
     .then(dbPostData => {
         if(!dbPostData) {
-            res.status(404).json({ message: 'No project found with matching id.'});
+            res.status(404).json({ message: 'No post found with matching id.'});
             return;
         }
         res.json(dbPostData);
@@ -48,36 +48,36 @@ router.get('/:id', (req, res) => {
     });
 });
 
-//CREATE a new project
+//CREATE a new post
 router.post('/', withAuth, async (req, res) => {
     try {
-        const newProject = await Project.create({
+        const newPost = await Post.create({
             ...req.body,
             user_id: req.session.user_id,
         });
 
-        res.status(200).json(newProject);
+        res.status(200).json(newPost);
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
-//DELETE a project
+//DELETE a post
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        const projectData = await Project.destroy({
+        const postData = await Post.destroy({
             where: {
                 id: req.params.id,
                 user_id: req.session.user_id,
             },
         });
 
-        if (!projectData) {
-            res.status(404).json({ message: 'No project found!'});
+        if (!postData) {
+            res.status(404).json({ message: 'No post found!'});
             return;
         }
 
-        res.status(200).json(projectData);
+        res.status(200).json(postData);
     } catch (err) {
         res.status(500).json(err);
     }

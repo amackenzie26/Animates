@@ -11,7 +11,14 @@ Project.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-Animation
+Animation.belongsTo(User, {
+    foreignKey: 'author_id',
+    onDelete: 'CASCADE'
+});
+
+User.hasMany(Animation, {
+    foreignKey: 'author-id'
+})
 
 module.exports = { User, Project, Animation };
 

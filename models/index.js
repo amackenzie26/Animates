@@ -21,13 +21,13 @@ Animation.belongsTo(User, {
     onDelete: 'CASCADE'
 });
 
-Post.hasOne(Animation, {
-    foreignKey: 'animation_id'
-});
+// Post.hasOne(Animation, {
+//     foreignKey: 'animation_id'
+// });
 
-Animation.belongsTo(Post, {
-    foreignKey: 'animation_id'
-});
+// Animation.belongsTo(Post, {
+//     foreignKey: 'animation_id'
+// });
 
 //a comment can only belong to one user
 Comment.belongsTo(User, {

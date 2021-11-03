@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection')
 
-class Project extends Model {}
+class Post extends Model {}
 
-Project.init(
+Post.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -30,6 +30,13 @@ Project.init(
                 key: 'id',
             },
         },
+        animation_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'animation',
+                key: 'id'
+            }
+        }
     },
     {
         sequelize,
@@ -40,4 +47,4 @@ Project.init(
     }
 );
 
-module.exports = Project;
+module.exports = Post;

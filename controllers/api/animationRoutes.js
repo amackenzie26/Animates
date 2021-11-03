@@ -1,10 +1,100 @@
-var router = require('express').Router();
-var {Animation, User} = reqiure('../../models');
+const router = require('express').Router();
+const { openFile, saveAnimation, saveFile, deleteFile } = require('../../utils/save');
+const { Animation, User } = require('../../models');
 
-// GET animation
+// GET all animations
+router.get('/', async (req, res) => {
+    try {
+        const animations = await Animation.findAll({
+            include: [{model: User}]
+        });
+        const animationsJSON = animations.map((animation) => {
+            animation.get({plain: true});
+        })
+        res.status(200).json(animationsJSON);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
-// POST animation
+// GET a given animation
+router.get('/:id', async (req, res) => {
+    try {
+        const animation = await Animation.findByPk(req.params.id, {
+            include: [{model: User}]
+        });
+        if(!animation) {
+            res.status(404).json({response: `Animation of id ${req.params.id} not found`});
+            return;
+        }
+        const animationJSON = animation.get({ plain:true });
+        res.status(200).json(animationJSON);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// POST animation (given stringified JSON from view in body)
+router.post('/', async (req, res) => {
+    try {
+        if(!req.body.animationData || !req.body.author_id) {
+            res.status(400).json({response: "Request body must contain animationData and author_id"});
+            return;
+        }
+        console.log("saving post...");
+        const path = await saveAnimation(req.body.animationData);
+        console.log(path);
+        const animation = Animation.build({
+            path: path,
+            author_id: req.body.author_id
+        });
+        await animation.save();
+        res.status(200).json({response: "New animation saved successfully."});
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 // PUT (update) animation
+router.put('/:id', async (req, res) => {
+    try {
+        if(!req.body.animationData) {
+            res.status(400).json({response: "Request body must contain animation data"});
+            return;
+        }
+        const animation = await Animation.findByPk(req.params.id);
+        if(!animation) {
+            res.status(404).json({response: "Animation not found"});
+            return;
+        }
+        // This will delete the file even if the save fails, which is potentially dangerous
+        console.log(animation.path);
+        await deleteFile(animation.path);
+        const saveSuccessful = await saveFile(animation.path, req.body.animationData);
+        if(!saveSuccessful) {
+            throw Error('Save not successful');
+        }
+        res.status(200).json({response: "Animation updated successfully"});
+        
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 // DELETE animation
+router.delete('/:id', async (req, res) => {
+    try {
+        const animation = await Animation.findByPk(req.params.id);
+        if(!animation) {
+            res.status(404).json({response: "animation not found"});
+            return;
+        }
+        await deleteFile(animation.path);
+        await animation.destroy();
+        res.status(200).json({response: "Animation deleted successfully"});
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+module.exports = router;

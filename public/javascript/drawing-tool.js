@@ -9,7 +9,9 @@ const addFrameBtn = $("#add-frame");
 const playBtn = $("#play");
 const stopBtn = $("#stop");
 const FPS = $("#fps");
+const saveBtn = $("#save");
 let animation;
+
 
 // Stack
 let undoHistory = [];
@@ -180,6 +182,25 @@ playBtn.on('click', startAnimation);
 stopBtn.on('click', stopAnimation);
 
 // Save Animation
-function save() {
-    // TODO
+async function save() {
+    // try {
+        // console.log('saving...');
+        console.log(two);
+        const animation = [];
+        for(i=0; i<frames.length; i++) {
+            const frameJSON = frames[i].toObject();
+            animation.push(frameJSON);
+        }
+        console.log(animation);
+        const animationData = JSON.stringify(animation);
+        console.log(animation);
+        // CHANGE THIS WHEN IMPLEMENTING WITH HANDLEBARS
+        const response = await fetch('http://localhost/api/animations', {
+            method: 'POST',
+            body: {
+                animationData: animationData
+            }
+        });
 }
+
+saveBtn.on('click', save);

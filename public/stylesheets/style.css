@@ -92,7 +92,6 @@ main {
     transition: color .1s;
     filter: drop-shadow(2px 2px 2px grey);
     margin-left: 20px;
-
 }
 
 .btn-no-style:hover {

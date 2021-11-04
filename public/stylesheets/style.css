@@ -106,8 +106,9 @@ main {
 
 /* modal content */
 .loginModal {
-    justify-content: center;
+    
     display: none;/* Hidden by default*/
+    justify-content: center;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;

@@ -10,6 +10,8 @@ const playBtn = $("#play");
 const stopBtn = $("#stop");
 const FPS = $("#fps");
 const saveBtn = $("#save");
+const loadBtn = $("#load");
+const loadData = $("#data");
 let animation;
 
 
@@ -17,11 +19,12 @@ let animation;
 let undoHistory = [];
 
 const lastPosition = new Two.Anchor(0, 0);
-const two = new Two({
+
+var two = new Two({
     width: drawSpace.width(),
     height: drawSpace.height()
 });
-const frames = [];
+var frames = new LinkedList();
 let curFrame = 0;
 let line = null;
 
@@ -87,7 +90,11 @@ function endDraw(event) {
 
 function addFrame() {
     // Create the new frame and add it to the scene
-    const frame = new Two.Group();
+    const frame = new Two({
+        width: drawSpace.width(),
+        height: drawSpace.height()
+    });
+    frame.appendTo(drawSpace[0]); // Get's the DOM Element from the jquery object
     frames.push(frame);
     curFrame = frames.length-1;
     console.log('Adding a frame');
@@ -97,20 +104,24 @@ function addFrame() {
     presentFrame(curFrame);
 
     // Add new frame button to the page
-    const newFrameBtn = $("<button>");
-    newFrameBtn.addClass("frame-button");
-    newFrameBtn.attr("data-frame", curFrame);
-    framesContainer.append(newFrameBtn);
+    const newFrameBtn = addButton(curFrame);
 
     // TODO - add delete frame button
+    
+}
+
+function addButton(i) {
+    const button = $("<button>");
+    button.addClass("frame-button");
+    button.attr("data-frame", i);
+    framesContainer.append(button);
 
     // add frame event listeners
-    newFrameBtn.on('click', (event) => {
+    button.on('click', (event) => {
         const id = parseInt(event.target.dataset.frame, 10);
         presentFrame(id);
         curFrame = id;
     });
-    
 }
 
 function presentFrame(i) {
@@ -186,28 +197,43 @@ stopBtn.on('click', stopAnimation);
 
 // Save Animation
 async function save() {
-    // try {
-        // console.log('saving...');
-        console.log(two);
-        const animation = [];
-        for(i=0; i<frames.length; i++) {
-            const frameJSON = frames[i].toObject();
-            animation.push(frameJSON);
+    // Get the rendered SVG from the DOM
+    const svg = drawSpace.children().prop('outerHTML');
+    console.log(svg);
+    const response = await fetch('/api/animations/', {
+        method: "POST",
+        body: {
+            animationData: svg
         }
-        console.log(animation);
-        const animationData = JSON.stringify(animation);
-        console.log(animation);
-        // CHANGE THIS WHEN IMPLEMENTING WITH HANDLEBARS
-        const response = await fetch('http://localhost/api/animations', {
-            method: 'POST',
-            body: {
-                animationData: animationData
-            }
-        });
+    });
+
+    if(response.ok) {
+        // Should redirect to the post page
+        document.location.replace('/');
+    } else {
+        alert('an error occured!');
+    }
 }
 
 saveBtn.on('click', save);
 
 async function load(animationData) {
-    
+    two.interpret($(animationData)[0]);
+
+    // set frames and curFrame
+    frames = two.scene.children;
+    for(i=0; i<frames.length; i++) {
+        frames[i].visible = false;
+    }
+
+    // Remove frameButtons and create new ones for new two
+    framesContainer.empty();
+    for(let i=0; i<frames.length; i++) {
+        addButton(i);
+    }
+    two.update();
 }
+
+loadBtn.on('click', (event) => {
+    load(loadData.val());
+});

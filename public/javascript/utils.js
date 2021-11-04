@@ -13,7 +13,7 @@ class LinkedList {
 
     push(data) {
         if(!this.head) {
-            this.head = data;
+            this.head = new ListNode(data);
             return;
         }
         let cur = this.head;
@@ -69,6 +69,16 @@ class LinkedList {
         while(cur.next) {
             cur = cur.next;
             count++;
+        }
+
+        return count;
+    }
+
+    forEach(cb) {
+        let cur = this.head;
+        while(cur) {
+            cb(cur.data);
+            cur = cur.next;
         }
     }
 }

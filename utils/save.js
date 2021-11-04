@@ -49,8 +49,8 @@ async function deleteFile(path) {
 
 async function createGif(path, animationData) {
     const svgs = animationData.split(',');
-    const width = 400;
-    const height = 400;
+    const width = 800;
+    const height = 800;
     const encoder = new GIFEncoder(width, height);
 
     // stream the results as they are available into myanimated.gif
@@ -68,7 +68,7 @@ async function createGif(path, animationData) {
         const buffer = await svg2img(`<?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">` + svg);
         console.log(buffer);
-        fs.writeFileSync('../public/assets/test.png', buffer);
+        fs.writeFileSync('./test.png', buffer);
         const stream = Readable.from(buffer);
         encoder.addFrame(stream);
     }

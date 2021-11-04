@@ -40,15 +40,18 @@ function signupDisplay() {
 window.onclick = (function(event){
     if (event.target == loginModal){
       loginModal.style.display="none"
+      
+    } if (event.target == signupModal) {
+        signupModal.style.display="none"
     }
   })
 
 //Hides signup modal by clicking on window
-window.onclick = (function(event){
-    if (event.target == signupModal){
-      signupModal.style.display="none"
-    }
-  })
+// window.onclick = (function(event){
+//     if (event.target == signupModal){
+//       signupModal.style.display="none"
+//     }
+//   })
 document.querySelector('#login').addEventListener('click', loginDisplay);
 document.querySelector('#signup').addEventListener('click', signupDisplay);
 document.querySelector('.login-form').addEventListener('submit', loginFormHandler);

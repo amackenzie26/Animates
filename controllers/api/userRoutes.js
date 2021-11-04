@@ -1,5 +1,7 @@
 const router = require ('express').Router();
 const { User, Post, Comment } = require('../../models');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 //GET /api/users for 'all' users
 router.get('/', (req, res) => {
@@ -45,19 +47,22 @@ router.get('/:id', (req, res) => {
 //CREATE new User
 router.post('/', async (req, res) => {
     try {
-        const salts = await brcrypt.genSalt(10)
-        const newPw = await brcrypt.hash(req.body.password, salt)
-        const userData = await User.findByIdAndUpdate(req.params.user_id, {
-            username: req.body.username,
+        console.log("starting post");
+        const newPw = await bcrypt.hash(req.body.password, saltRounds);
+        const newUser = User.build( {
+            name: req.body.name,
+            email: req.body.email,
             password: newPw
-        })
+        });
+        await newUser.save();
+        console.log('user saved');
 
         req.session.save(() => {
-            req.session.user_id = userData.id;
+            req.session.user_id = newUser.id;
             req.session.logged_in = true;
-
-            res.status(200).json(userData);
+            res.status(200).json(newUser);
         });
+        console.log('session saved');
     } catch (err) {
         res.status(500).json(err);
     }

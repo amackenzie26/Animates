@@ -21,9 +21,12 @@ Animation.init(
             type: DataTypes.STRING(150),
             allowNull: false
         },
-        author_id: {
+        playbackSpeed: {
             type: DataTypes.INTEGER,
             allowNull: false,
+        },
+        author_id: {
+            type: DataTypes.INTEGER,
             references: {
                 model: 'user',
                 key: 'id'

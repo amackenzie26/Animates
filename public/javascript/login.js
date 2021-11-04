@@ -27,12 +27,12 @@ async function loginFormHandler(event) {
 }
 //login modal
 function loginDisplay() {
-    console.log("login modal display activated")
+    // console.log("login modal display activated")
     loginModal.style.display="inline"
 }
 //signup modal
 function signupDisplay() {
-    console.log("signup modal activated")
+    // console.log("signup modal activated")
     signupModal.style.display="inline"
 }
 

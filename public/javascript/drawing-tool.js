@@ -56,7 +56,7 @@ function draw(event) {
         
         line = frame.makeCurve([lastPosition.clone(), curPosition.clone()], true); // Make sure to clone these so that the array has no shallow copies
         line.noFill();
-        line.stroke = '#000';
+        line.stroke = '#333';
         line.linewidth = linewidth.val();
         line.translation.clear();
         // Adding an offset to account for a problem with drawing.
@@ -210,6 +210,7 @@ async function save() {
     const svgs = [];
     frames.forEach((frame) => {
         presentFrame(frame);
+        // drawSpace.children();
         svgs.push(drawSpace.html());
     });
 
@@ -238,7 +239,7 @@ saveBtn.on('click', save);
 
 async function load(animationData) {
     const svgs = animationData.split(",");
-
+    // TODO: add xmlns='http://www.w3.org/2000/svg'
     frames.clear();
     drawSpace.empty();
     framesContainer.empty();

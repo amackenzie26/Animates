@@ -16,34 +16,45 @@
 
         <div class="wrapper d-flex min-vh-100">
             {{!-- NAV BAR ON LEFT --}}
-            <ul class="nav flex-column">
-                <li>
-                    <img id="logo" src="/assets/animateStatic.png" alt="AniMates logo">
-                </li>
+            <header>
+                <ul class="nav flex-column">
+                   {{!-- LOGO IMG  --}}
+                    <li>
+                        <img id="logo" src="/assets/animateStatic.png" alt="AniMates logo">
+                    </li>
+                    {{!-- IF USER IS LOGGED IN, DISPLAY THIS --}}
                     {{#if loggedIn}}
-                <li class="nav-item">
-                    <a href="/" class="homepage nav-item">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/" class="explorepage nav-item">Explore</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/" class="myprofilepage nav-item">My Profile</a>
-                </li>
-                <li class="nav-item">
-                    <button id="logout" class="btn-no-style">Logout</button>
-                </li>
-                {{else}}
-                <li class="nav-item">
-                    <a href="/" class="homepage nav-item">Home</a>
-                </li>
-                <li class="nav-item">
-                    <button id="login" class="btn-no-style">Login</button>
-                </li>    
-                {{/if}}
-                </nav>
+                        {{!-- HOMEPAGE LINK --}}
+                        <li class="nav-item">
+                            <a href="/" class="homepage nav-item">Home</a>
+                        </li>
+                        {{!-- EXPLORE PAGE LINK --}}
+                        <li class="nav-item">
+                            <a href="/" class="explorepage nav-item">Explore</a>
+                        </li>
+                        {{!-- MY PROFILE LINK --}}
+                        <li class="nav-item">
+                            <a href="/" class="myprofilepage nav-item">My Profile</a>
+                        </li>
+                        {{!-- LOGOUT LINK --}}
+                        <li class="nav-item">
+                            <button id="logout" class="btn-no-style">Logout</button>
+                        </li>
+                    {{!-- IF USER IS NOT LOGGED IN, DISPLAY THIS --}}
+                    {{else}}
+                        {{!-- HOMEPAGE LINK --}}
+                        <li class="nav-item">
+                            <a href="/" class="homepage nav-item">Home</a>
+                        </li>
+                        {{!-- LOGIN LINK --}}
+                        <li class="nav-item">
+                            <button id="login" class="btn-no-style">Login</button>
+                        </li>    
+                    {{/if}}
+                    </nav>
+                </ul>
             </header>
-
+            
             <main class="container">
                 {{{ body }}}
             </main>

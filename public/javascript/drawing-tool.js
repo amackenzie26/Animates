@@ -9,25 +9,30 @@ const addFrameBtn = $("#add-frame");
 const playBtn = $("#play");
 const stopBtn = $("#stop");
 const FPS = $("#fps");
+const saveBtn = $("#save");
+const loadBtn = $("#load");
+const loadData = $("#data");
 let animation;
+
 
 // Stack
 let undoHistory = [];
 
 const lastPosition = new Two.Anchor(0, 0);
-const two = new Two({
-    width: drawSpace.width(),
-    height: drawSpace.height()
-});
-const frames = [];
+
+// var two = new Two({
+//     width: drawSpace.width(),
+//     height: drawSpace.height()
+// });
+var frames = new LinkedList();
 let curFrame = 0;
 let line = null;
 
 // console.log(drawSpace[0]);
 addFrame();
 
-two.appendTo(drawSpace[0]); // Get's the DOM Element from the jquery object
-two.add(frames[0]);
+// two.appendTo(drawSpace[0]); // Get's the DOM Element from the jquery object
+// two.add(frames[0]);
 
 function startDraw(event) {
 
@@ -45,8 +50,11 @@ function draw(event) {
     const curPosition = new Two.Anchor(event.clientX, event.clientY);
     
     // If a line hasn't been created, start one. otherwise, add the new position to the line.
+    const frame = frames.getIndex(curFrame);
+    // console.log(frame);
     if(!line) {
-        line = two.makeCurve([lastPosition.clone(), curPosition.clone()], true); // Make sure to clone these so that the array has no shallow copies
+        
+        line = frame.makeCurve([lastPosition.clone(), curPosition.clone()], true); // Make sure to clone these so that the array has no shallow copies
         line.noFill();
         line.stroke = '#000';
         line.linewidth = linewidth.val();
@@ -60,9 +68,9 @@ function draw(event) {
 
         // Sets the end of each line to be a half circle.
         line.cap = "round";
-
+        console.log(line);
         // Add this line to the current frame
-        frames[curFrame].add(line);
+        frame.add(line);
         
         // Clear the undo history
         undoHistory = [];
@@ -70,7 +78,7 @@ function draw(event) {
         line.vertices.push(curPosition);
     }
     lastPosition.set(curPosition.x, curPosition.y);
-    two.update();
+    frame.update();
 }
 
 function endDraw(event) {
@@ -85,38 +93,51 @@ function endDraw(event) {
 
 function addFrame() {
     // Create the new frame and add it to the scene
-    const frame = new Two.Group();
+    const frame = new Two({
+        width: drawSpace.width(),
+        height: drawSpace.height()
+    });
+    frame.appendTo(drawSpace[0]); // Get's the DOM Element from the jquery object
+    frame.add(new Two.Group());
+    curFrame = frames.size();
     frames.push(frame);
-    curFrame = frames.length-1;
-    console.log('Adding a frame');
-    two.add(frame);
+    console.log(frame);
 
     // update display
-    presentFrame(curFrame);
+    presentFrame(frames.getIndex(curFrame));
 
     // Add new frame button to the page
-    const newFrameBtn = $("<button>");
-    newFrameBtn.addClass("frame-button");
-    newFrameBtn.attr("data-frame", curFrame);
-    framesContainer.append(newFrameBtn);
+    addButton(curFrame);
 
     // TODO - add delete frame button
-
-    // add frame event listeners
-    newFrameBtn.on('click', (event) => {
-        const id = event.target.dataset.frame;
-        presentFrame(id);
-    });
     
+    return frame;
 }
 
-function presentFrame(i) {
-    frames.forEach((f) => {
-        f.visible = false;
-    });
-    frames[i].visible = true;
+function addButton(i) {
+    const button = $("<button>");
+    button.addClass("frame-button");
+    button.attr("data-frame", i);
+    framesContainer.append(button);
 
-    two.update();
+    // add frame event listeners
+    button.on('click', (event) => {
+        const id = parseInt(event.target.dataset.frame, 10);
+        console.log(id);
+        curFrame = id;
+        presentFrame(frames.getIndex(id));
+    });
+}
+
+function presentFrame(frame) {
+    hideFrames();
+    frame.appendTo(drawSpace[0]); // Get's the DOM Element from the jquery object
+    frame.update();
+}
+
+function hideFrames(frame) {
+    drawSpace.empty();
+    
 }
 
 drawSpace.on('mousedown', startDraw);
@@ -125,32 +146,34 @@ drawSpace.on('mousedown', startDraw);
 clearBtn.on('click', (event) => {
     const confirmed = confirm("Are you sure you want to clear your frame?");
     if(confirmed) {
+        const frame = frames.getIndex(curFrame)
         // Remove all children from the current group
-        while(frames[curFrame].children.length > 0) {
-            frames[curFrame].children.pop();
-        }
+        frame.clear();
         // Clear undo history
         undoHistory = [];
-        two.update();
+        frame.update();
     }
 });
 
 // Undo button
 undoBtn.on('click', (event) => {
-    if(frames[curFrame].children.length > 0) {
-        const undid = frames[curFrame].children.pop();
-        console.log(undid);
+    const frame = frames.getIndex(curFrame);
+
+    if(frame.scene.children.length > 1) {
+        const undid = frame.scene.children.pop();
+        // console.log(undid);
         undoHistory.push(undid);
-        two.update();
+        frame.update();
     }
 });
 
 // Redo button
 redoBtn.on('click', (event) => {
+    const frame = frames.getIndex(curFrame);
     const redid = undoHistory.pop();
     if(redid) {
-        frames[curFrame].children.push(redid);
-        two.update();
+        frame.scene.children.push(redid);
+        frame.update();
     }
 });
 
@@ -159,12 +182,14 @@ addFrameBtn.on('click', addFrame);
 
 // Add animation loop
 function startAnimation() {
+    console.log('starting animation...')
     if(!animation) {
+        console.log('setting animation interval...');
         const framerate = Math.floor(1000.0 / FPS.val());
         animation = setInterval(() => {
             curFrame += 1;
-            if(curFrame === frames.length) curFrame = 0;
-            presentFrame(curFrame);
+            if(curFrame === frames.size()) curFrame = 0;
+            presentFrame(frames.getIndex(curFrame));
         }, framerate);
     }
     
@@ -180,6 +205,52 @@ playBtn.on('click', startAnimation);
 stopBtn.on('click', stopAnimation);
 
 // Save Animation
-function save() {
-    // TODO
+async function save() {
+    // Get the rendered SVG from the DOM
+    const svgs = [];
+    frames.forEach((frame) => {
+        presentFrame(frame);
+        svgs.push(drawSpace.html());
+    });
+
+    console.log(svgs.toString());
+
+    const response = await fetch('/api/animations/', {
+        method: 'POST',
+        body: {
+            animationData: svgs.toString(),
+            // TODO: add user id as author_id
+
+            
+        },
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    if(response.ok) {
+        // Should redirect to the post page
+        document.location.replace('/');
+    } else {
+        alert('an error occured!');
+    }
 }
+
+saveBtn.on('click', save);
+
+async function load(animationData) {
+    const svgs = animationData.split(",");
+
+    frames.clear();
+    drawSpace.empty();
+    framesContainer.empty();
+    curFrame=-1;
+
+
+    svgs.forEach(svg => {
+        const frame = addFrame();
+        frame.interpret($(svg)[0]);
+    });
+}
+
+loadBtn.on('click', (event) => {
+    load(loadData.val());
+});

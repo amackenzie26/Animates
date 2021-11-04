@@ -38,7 +38,7 @@ async function saveAnimation(data) {
 }
 
 async function deleteFile(path) {
-    return await fs.unlink(path, ()=>{});
+    return fs.unlink(path, ()=>{});
 }
 
 module.exports = {

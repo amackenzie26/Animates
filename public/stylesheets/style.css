@@ -2,11 +2,12 @@
     --primary-color: #FF6400 ;
     --secondary-color: #108AC4 ;
     --primary-hover: white;
+    color: black;
 }
 
 * {
     box-sizing: border-box;
-    color: black;
+    color:black;
 }
 
 body, html {
@@ -46,10 +47,11 @@ button {
     background-color: var(--primary-color);
     border: 0;
     padding: 1%;
-    color: var(--primary-color);
+    color: black;
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
+    margin-left: 75px;
 }
 
 button:hover{
@@ -84,10 +86,13 @@ main {
     padding: 0;
     cursor: pointer;
     text-decoration: none;
-    color: var(--primary-color);
+    color: white;
     font-size: 100%;
     font-weight: bold;
     transition: color .1s;
+    filter: drop-shadow(2px 2px 2px grey);
+    margin-left: 20px;
+
 }
 
 .btn-no-style:hover {

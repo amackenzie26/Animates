@@ -74,6 +74,10 @@ class LinkedList {
         return count;
     }
 
+    clear() {
+        this.head = null;
+    }
+
     forEach(cb) {
         let cur = this.head;
         while(cur) {

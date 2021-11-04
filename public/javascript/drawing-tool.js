@@ -111,6 +111,7 @@ function addFrame() {
 
     // TODO - add delete frame button
     
+    return frame;
 }
 
 function addButton(i) {
@@ -205,41 +206,49 @@ stopBtn.on('click', stopAnimation);
 
 // Save Animation
 async function save() {
-    // // Get the rendered SVG from the DOM
-    // const svg = drawSpace.children().prop('outerHTML');
-    // console.log(svg);
-    // const response = await fetch('/api/animations/', {
-    //     method: "POST",
-    //     body: {
-    //         animationData: svg
-    //     }
-    // });
+    // Get the rendered SVG from the DOM
+    const svgs = [];
+    frames.forEach((frame) => {
+        presentFrame(frame);
+        svgs.push(drawSpace.html());
+    });
 
-    // if(response.ok) {
-    //     // Should redirect to the post page
-    //     document.location.replace('/');
-    // } else {
-    //     alert('an error occured!');
-    // }
+    console.log(svgs.toString());
+
+    const response = await fetch('/api/animations/', {
+        method: 'POST',
+        body: {
+            animationData: svgs.toString(),
+            // TODO: add user id as author_id
+
+            
+        },
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    if(response.ok) {
+        // Should redirect to the post page
+        document.location.replace('/');
+    } else {
+        alert('an error occured!');
+    }
 }
 
 saveBtn.on('click', save);
 
 async function load(animationData) {
-    // two.interpret($(animationData)[0]);
+    const svgs = animationData.split(",");
 
-    // // set frames and curFrame
-    // frames = two.scene.children;
-    // for(i=0; i<frames.length; i++) {
-    //     frames[i].visible = false;
-    // }
+    frames.clear();
+    drawSpace.empty();
+    framesContainer.empty();
+    curFrame=-1;
 
-    // // Remove frameButtons and create new ones for new two
-    // framesContainer.empty();
-    // for(let i=0; i<frames.length; i++) {
-    //     addButton(i);
-    // }
-    // two.update();
+
+    svgs.forEach(svg => {
+        const frame = addFrame();
+        frame.interpret($(svg)[0]);
+    });
 }
 
 loadBtn.on('click', (event) => {

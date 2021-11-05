@@ -36,11 +36,12 @@ async function saveAnimation(data, playbackSpeed, width, height) {
     const dirname = uuid.v1();
 
     // Generate a file path for this (normalize takes out the ..)
-    const pathname = path.normalize( path.join(__dirname, '../public/assets/animations', dirname) ) ;
+    const fullPathname = path.normalize( path.join(__dirname, '../public/assets/animations', dirname) ) ;
+    const pathname = path.join('/assets/animations/', dirname);
     // console.log(pathname);
-    if(!fs.existsSync(pathname)) fs.mkdirSync(pathname);
-    await saveFile(pathname + "/data.txt", data);
-    await createGif(pathname, data, playbackSpeed, width, height);
+    if(!fs.existsSync(fullPathname)) fs.mkdirSync(fullPathname);
+    await saveFile(fullPathname + "/data.txt", data);
+    await createGif(fullPathname, data, playbackSpeed, width, height);
     return pathname;
     } catch (err) {
         console.log(err);

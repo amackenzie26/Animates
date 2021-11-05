@@ -218,15 +218,13 @@ async function save() {
         svgs.push(drawSpace.html());
     });
 
-    console.log(svgs.toString());
+    // console.log(svgs.toString());
 
-    const response = await fetch('/api/animations/', {
+    const response = await fetch('/api/animations', {
         method: 'POST',
         body: {
             animationData: svgs.toString(),
-            // TODO: add user id as author_id
-
-            
+            playbackSpeed: Math.floor(1000.0 / FPS.val())
         },
         headers: { 'Content-Type': 'application/json' }
     });

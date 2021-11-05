@@ -39,9 +39,9 @@ async function saveAnimation(data, playbackSpeed) {
     const pathname = path.normalize( path.join(__dirname, '../public/assets/animations', dirname) ) ;
     // console.log(pathname);
     if(!fs.existsSync(pathname)) fs.mkdirSync(pathname);
-    const out = await saveFile(pathname + "/data.txt", data);
+    await saveFile(pathname + "/data.txt", data);
     await createGif(pathname, data, playbackSpeed);
-    return out;
+    return pathname + "/data.txt";
     } catch (err) {
         console.log(err);
     }

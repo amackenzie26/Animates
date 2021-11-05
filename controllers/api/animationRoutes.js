@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
         }
         console.log("saving post...");
         const path = await saveAnimation(req.body.animationData, req.body.playbackSpeed);
-        console.log("from animationRoutes", path);
+        console.log(path);
         const animation = Animation.build({
             path: path,
             playbackSpeed: req.body.playbackSpeed,
@@ -69,6 +69,7 @@ router.post('/', async (req, res) => {
         res.status(200).json({response: "New animation saved successfully."});
     } catch (err) {
         res.status(500).json(err);
+        console.log(err);
     }
 });
 

@@ -2,9 +2,11 @@ const fsp = require('fs').promises;
 const fs = require('fs');
 const uuid = require('uuid');
 const path = require('path');
+const pngFileStream = require('png-file-stream');
 const GIFEncoder = require('gifencoder');
 const svg2img = promisify(require("svg2img"));
-const { Readable } = require('stream');
+
+
 
 async function saveFile(pathname, data) {
     try {
@@ -28,18 +30,20 @@ async function openFile(path) {
 }
 
 // Generates a unique name
-async function saveAnimation(data) {
+async function saveAnimation(data, playbackSpeed) {
     try {
     // Generate a unique filename
-    const filename = uuid.v1();
+    const dirname = uuid.v1();
 
     // Generate a file path for this (normalize takes out the ..)
-    const pathname = path.normalize( path.join(__dirname, '../public/assets', filename) ) ;
-    console.log(pathname);
-    await saveFile(pathname + ".txt", data);
-    await createGif(pathname + ".gif", data);
+    const pathname = path.normalize( path.join(__dirname, '../public/assets/animations', dirname) ) ;
+    // console.log(pathname);
+    if(!fs.existsSync(pathname)) fs.mkdirSync(pathname);
+    const out = await saveFile(pathname + "/data.txt", data);
+    await createGif(pathname, data, playbackSpeed);
+    return out;
     } catch (err) {
-        throw err;
+        console.log(err);
     }
 }
 
@@ -47,33 +51,40 @@ async function deleteFile(path) {
     return fsp.unlink(path, ()=>{});
 }
 
-async function createGif(path, animationData) {
+async function createGif(path, animationData, playbackSpeed) {
     const svgs = animationData.split(',');
     const width = 800;
     const height = 800;
     const encoder = new GIFEncoder(width, height);
+    
 
-    // stream the results as they are available into myanimated.gif
-    const writeStream = fs.createWriteStream(path);
-    const readStream = encoder.createReadStream();
-    readStream.pipe( writeStream );
+    // // stream the results as they are available into myanimated.gif
+    // const writeStream = fs.createWriteStream(path);
+    // const readStream = encoder.createReadStream();
+    // readStream.pipe( writeStream );
 
-    encoder.start();
-    encoder.setRepeat(0);
+    // encoder.start();
+    // encoder.setRepeat(0);
     // encoder.setDelay(animation.playbackSpeed);
     
     const imageBuffers = [];
-    for(const svg of svgs) {
-        console.log('converting svg...');
+    const imagePaths = [];
+    for(let i=0; i<svgs.length; i++) {
         const buffer = await svg2img(`<?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">` + svg);
-        console.log(buffer);
-        fs.writeFileSync('./test.png', buffer);
-        const stream = Readable.from(buffer);
-        encoder.addFrame(stream);
+        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">` + svgs[i]);
+        await fsp.writeFile(path + "/frame" + i + ".png", buffer);
+        imageBuffers.push(buffer);
+        imagePaths.push(path + "/frame" + i + ".png");
+    }
+    console.log('creating stream...')
+    try {
+    const stream = pngFileStream( path + '/frame?.png')
+    .pipe(encoder.createWriteStream({ repeat: 0, delay: playbackSpeed, quality: 10, transparent: true }))
+    .pipe(fs.createWriteStream(path + '/animation.gif'));
+    } catch (err) {
+        console.log(err);
     }
 
-    encoder.finish();
 }
 
 function promisify(f) {

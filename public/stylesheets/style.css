@@ -1,7 +1,10 @@
 :root {
-    --primary-color: #FF6400 ;
-    --secondary-color: #108AC4 ;
-    --primary-hover: white;
+    --primary: #FF6400 ;
+    --primary-hover: #ee8844;
+    --light: #EEE;
+    --dark: #001e28;
+    --medium: #bfc7d2;
+    --secondary-color: #009ad5 ;
     color: black;
 }
 
@@ -15,46 +18,61 @@
     margin-right: auto;
 }
 
-
+.nav {
+    background-color: var(--primary);
+    color: var();
+}
 
 body, html {
     height: 100%;
     padding: 0;
     margin: 0;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background-color: lightgray;
+    background-color: var(--light);
 }
 
 a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--dark);
     font-weight: bold;
     transition: color .1s;
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
-.homepage {
-    color: var(--primary-color);
+.nav-item {
+    color: var(--light);
+    background-color: var(--primary);
     font-weight: bold;
     margin: 20px;
+}
+.nav-item-hoverable:hover {
+    background-color: var(--primary-hover);
 }
 
 a:hover, .blog-title {
     color: var(--primary-hover);
 }
 
+.nav-link {
+    color: var(--light);
+}
+
+.nav-link:hover {
+    color: var(--light);
+}
+
 .title {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-size: 25px;
     margin: 25px;
     padding: 10px;
 }
 
 button {
-    background-color: var(--primary-color);
+    background-color: var(--primary);
     border: 0;
     padding: 1%;
-    color: black;
+    color: var(--light);
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
@@ -64,7 +82,6 @@ button {
 
 button:hover{
     background-color: var(--secondary-color);
-    color: var(--primary-color);
 }
 
 header {
@@ -87,10 +104,11 @@ main {
 
 .btn-no-style {
     border: none;
-    padding: 0;
+    /* padding: 0; */
     cursor: pointer;
     text-decoration: none;
-    color: white;
+    color: var(--primary);
+    background-color: var(--light);
     font-size: 100%;
     font-weight: bold;
     transition: color .1s;
@@ -100,10 +118,19 @@ main {
 }
 
 .btn-no-style:hover {
-    background: none;
-    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    color: var(--light);
 }
 
+.modalButton {
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+.modalButton:hover {
+    background-color: var(--secondary-color);
+    color: var(--light);
+}
 /* modal content */
 .loginModal {
     
@@ -125,7 +152,7 @@ main {
     animation-duration: .5s;
     animation-iteration-count: 2s;
     animation-timing-function: linear;
-    box-shadow: 10px 10px 5px tomato;
+    box-shadow: 10px 10px 5px var(--dark);
 }
 .loginModal > div {
     padding: 10px;
@@ -151,5 +178,5 @@ main {
     animation-duration: .5s;
     animation-iteration-count: 2s;
     animation-timing-function: linear;
-    box-shadow: 10px 10px 5px tomato;
+    box-shadow: 10px 10px 5px var(--dark);
 }

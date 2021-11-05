@@ -30,7 +30,7 @@ async function openFile(path) {
 }
 
 // Generates a unique name
-async function saveAnimation(data, playbackSpeed) {
+async function saveAnimation(data, playbackSpeed, width, height) {
     try {
     // Generate a unique filename
     const dirname = uuid.v1();
@@ -40,8 +40,8 @@ async function saveAnimation(data, playbackSpeed) {
     // console.log(pathname);
     if(!fs.existsSync(pathname)) fs.mkdirSync(pathname);
     await saveFile(pathname + "/data.txt", data);
-    await createGif(pathname, data, playbackSpeed);
-    return pathname + "/data.txt";
+    await createGif(pathname, data, playbackSpeed, width, height);
+    return pathname;
     } catch (err) {
         console.log(err);
     }
@@ -51,10 +51,8 @@ async function deleteFile(path) {
     return fsp.unlink(path, ()=>{});
 }
 
-async function createGif(path, animationData, playbackSpeed) {
+async function createGif(path, animationData, playbackSpeed, width, height) {
     const svgs = animationData.split(',');
-    const width = 800;
-    const height = 800;
     const encoder = new GIFEncoder(width, height);
     
 

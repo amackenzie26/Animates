@@ -62,7 +62,7 @@ router.post('/', async (req, res) => {
         //     return;
         // }
         console.log("saving post...");
-        const path = await saveAnimation(req.body.animationData, req.body.playbackSpeed);
+        const path = await saveAnimation(req.body.animationData, req.body.playbackSpeed, req.body.width, req.body.height);
         console.log(path);
         const animation = Animation.build({
             path: path,

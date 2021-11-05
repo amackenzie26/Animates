@@ -33,9 +33,9 @@ This app allows users to log in or sign up using a username and login or by prov
 
 ## App Visual
 
-<img src="/Users/alecmackenzie/Desktop/Animates/images/animatedemo.gif" alt="Screenshot of Drawing Tool/Application" width="200" height="200"/> 
+<img src="images/create-screenshot.png" alt="Screenshot of Drawing Tool/Application"/> 
 
-<img src="/Users/alecmackenzie/Desktop/Animates/images/exploredemo.gif" alt="Screenshot of Drawing Tool/Application" width="200" height="400"/> 
+<img src="images/main-screenshot.png" alt="Screenshot of Drawing Tool/Application"/> 
 
 
 ## Deployed Link
@@ -46,8 +46,6 @@ https://peaceful-cliffs-69062.herokuapp.com/
 ## Future Developments
 
 We plan to develop further a more extensive Explore page. We also plan to add more social media components such as a like feature and a friends list. A galleries feature will eventually have a polished interactive user interface. 
-
-## View Our Presentation
 
 
 ## Repositories and Links

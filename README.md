@@ -38,6 +38,7 @@ This app allows users to log in or sign up using a username and login or by prov
 
 ## Deployed Link
 
+https://peaceful-cliffs-69062.herokuapp.com/
 
 
 ## Future Developments
@@ -47,6 +48,11 @@ We plan to develop further a more extensive Explore page. We also plan to add mo
 ## View Our Presentation
 
 
+## Repositories and Links
+
+https://github.com/amackenzie26/Animates
+https://peaceful-cliffs-69062.herokuapp.com/
+https://amackenzie26.github.io/Animates/
 
 ## Authors
 

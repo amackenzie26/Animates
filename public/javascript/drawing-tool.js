@@ -1,4 +1,3 @@
-
 const drawSpace = $("#draw-space");
 const linewidth = $("#linewidth");
 const clearBtn = $("#clear");
@@ -222,10 +221,12 @@ async function save() {
 
     const response = await fetch('/api/animations', {
         method: 'POST',
-        body: {
-            animationData: svgs.toString(),
-            playbackSpeed: Math.floor(1000.0 / FPS.val())
-        },
+        body: JSON.stringify({
+            "animationData": svgs.toString(),
+            "playbackSpeed": Math.floor(1000.0 / FPS.val()),
+            width: $("#draw-space").width(),
+            height: $("#draw-space").height()
+        }),
         headers: { 'Content-Type': 'application/json' }
     });
 

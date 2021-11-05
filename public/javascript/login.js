@@ -5,7 +5,7 @@ var signupModal = document.getElementById("signupModal");
 async function loginFormHandler(event) {
     event.preventDefault();
 
-    const username = document.querySelector('#username').value.trim();
+    const username = document.querySelector('#username-login').value.trim();
     const password = document.querySelector('#password-login').value.trim();
 
     if (username && password) {
@@ -19,25 +19,28 @@ async function loginFormHandler(event) {
         });
 
         if (response.ok) {
-            document.location.replace('/');
+            document.location.replace('/dashboard');
         }else {
             alert('Failed to log in');
         }
     }
 }
 //login modal
-function loginDisplay() {
-    // console.log("login modal display activated")
+function loginDisplay(event) {
+    event.preventDefault()
+    console.log("login modal display activated")
     loginModal.style.display="inline"
 }
 //signup modal
-function signupDisplay() {
-    // console.log("signup modal activated")
+function signupDisplay(event) {
+    event.preventDefault()
+    console.log("signup modal activated")
     signupModal.style.display="inline"
 }
 
 // Hides login modal by clicking on window
 window.onclick = (function(event){
+    event.preventDefault()
     if (event.target == loginModal){
       loginModal.style.display="none"
       
@@ -46,6 +49,9 @@ window.onclick = (function(event){
     }
   })
 
+//click to redirect to signup modal
+document.querySelector('#signupRedirect').addEventListener('click', signupDisplay);
+
 //Hides signup modal by clicking on window
 // window.onclick = (function(event){
 //     if (event.target == signupModal){
@@ -53,5 +59,5 @@ window.onclick = (function(event){
 //     }
 //   })
 document.querySelector('#login').addEventListener('click', loginDisplay);
-document.querySelector('#signup').addEventListener('click', signupDisplay);
-document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+// document.querySelector('#signup').addEventListener('click', signupDisplay);
+// document.querySelector('.login-form').addEventListener('submit', loginFormHandler);

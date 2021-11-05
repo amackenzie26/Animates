@@ -1,18 +1,23 @@
-<div id="controls">
-    <button type="button" id="clear">Clear</button>
-    <button type="button" id="undo">Undo</button>
-    <button type="button" id="redo">Redo</button>
-    <button type="button" id="play">Play</button>
-    <button type="button" id="stop">Stop</button>
-    <button type="button" id="save">Save</button>
-    <button type="button" id="load">Load</button>
-    <input type="text" id="data">
-    <label for="fps">FPS</label>
-    <input type="number" id="fps" min=0 max=30 value=15>
-    <button type="button" id="add-frame">Add Frame</button>
+<link rel="stylesheet" href="/stylesheets/create-animation.css">
+<div class="d-flex">
+    <div id="controls" class="d-flex flex-column flex-nowrap">
+        <button type="button" id="clear">Clear</button>
+        <button type="button" id="undo">Undo</button>
+        <button type="button" id="redo">Redo</button>
+        <button type="button" id="play">Play</button>
+        <button type="button" id="stop">Stop</button>
+        <button type="button" id="save">Save</button>
+        <button type="button" id="load">Load</button>
+        <input type="range" min="1" max="100" value="50" class="slider" id="linewidth">
+        <label for="fps">FPS</label>
+        <input type="number" id="fps" min=0 max=30 value=15>
+        <button type="button" id="add-frame">Add Frame</button>
+    </div>
+    <div id="controls" class="d-flex flex-column flex-nowrap">
+        <div id="draw-space"></div>
+        <div id="frames" class="d-flex flex-wrap"></div>
+    </div>
 </div>
-<div id="draw-space"></div>
-<div id="frames"></div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.7.8/two.min.js" integrity="sha512-mdGHODDp7TO7EFKoF9PR9GDzeovgcM/aTgf5uohS5AUS+/xF1x20JC1C02tzv1cAD1ze+SuQ3+4TVxallao44g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

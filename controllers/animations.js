@@ -4,7 +4,9 @@ const { Animation } = require('../models');
 
 router.get('/create', async (req, res) => {
     try {
-    res.render('create-animation');
+    res.render('create-animation', {
+        loggedIn: req.session.loggedIn
+    });
     } catch (err) {
         console.log(err);
     }

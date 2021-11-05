@@ -124,7 +124,7 @@
         </section> --}}
         {{!-- NAV BAR ON LEFT --}}
         <div class="d-flex flex-fluid vh-100">
-            <ul class="nav flex-column p-0 h-100 col-3">
+            <ul class="nav flex-column p-0 h-100 col-3 align-items-start">
                 {{!-- LOGO IMG  --}}
                 <li>
                     <img class="w-100" id="logo" src="/assets/animatesStatic.svg" alt="AniMates logo">
@@ -132,15 +132,16 @@
                 {{!-- IF USER IS LOGGED IN, DISPLAY THIS --}}
                 {{#if loggedIn}}
                 {{!-- HOMEPAGE LINK --}}
-                <li class="nav-item-hoverable nav-item">
+                <li class="nav-item">
                     <a href="/" class="nav-link">Home</a>
                 </li>
                 {{!-- EXPLORE PAGE LINK --}}
                 <li class="nav-item-hoverable nav-item">
                     <a href="/explore" class="nav-link">Explore</a>
+
                 </li>
                 {{!-- MY PROFILE LINK --}}
-                <li class="nav-item-hoverable nav-item">
+                <li class="nav-item">
                     <a href="/" class="nav-link">My Profile</a>
                 </li>
                 {{!-- CREATE ANIMATION --}}
@@ -159,11 +160,11 @@
                 </li>
                 {{!-- LOGIN LINK --}}
                 <li class="nav-item">
-                    <button id="login" class="btn btn-primary btn-no-style" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                    <a id="login" class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
                 </li>   
                  {{!--SIGN UP LINK  --}}
-                <li>
-                    <button class="btn modalButton" id="signupRedirect" type="submit" data-bs-toggle="modal" data-bs-target="#signupModal">SIGN UP HERE</button>
+                <li class="nav-item">
+                    <a class="nav-link" id="signupRedirect" type="submit" data-bs-toggle="modal" data-bs-target="#signupModal">SIGN UP HERE</a>
                 </li>
                 {{/if}}
                 </nav>

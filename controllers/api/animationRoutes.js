@@ -64,6 +64,7 @@ router.post('/', async (req, res) => {
         console.log("saving post...");
         const path = await saveAnimation(req.body.animationData, req.body.playbackSpeed, req.body.width, req.body.height);
         console.log(path);
+        console.log(req.session.user_id);
         const animation = Animation.build({
             path: path,
             playbackSpeed: req.body.playbackSpeed,

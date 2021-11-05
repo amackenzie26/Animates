@@ -22,7 +22,7 @@ Animation.belongsTo(User, {
 });
 
 // Post.hasOne(Animation, {
-//     foreignKey: 'animation_id'
+//     foreignKey: 'animation_id',
 // });
 
 // Animation.belongsTo(Post, {

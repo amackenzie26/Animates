@@ -1,4 +1,4 @@
-const { Post } = require('../models');
+const { Post, Animation, User } = require('../models');
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 
@@ -12,14 +12,28 @@ router.get('/', (req, res) => {
         ]
     })
     .then(dbPostData => {
-        const projects = dbPostData.map(project => project.get({ plain: true}));
-        res.render('homepage', { projects, loggedIn: req.session.loggedIn});
+        const posts = dbPostData.map(project => project.get({ plain: true}));
+        res.render('homepage', { posts, loggedIn: req.session.loggedIn});
     })
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
 });
+
+//Explore animations page
+router.get('/explore', async (req, res) => {
+    const animations = await Animation.findAll({
+        include: [{model: User}]
+    });
+
+    const animationsJSON = animations.map(animation => animation.get({plain: true}));
+    console.log(animationsJSON);
+    res.render('explore', {
+        loggedIn: req.session.loggedIn,
+        animations: animationsJSON
+    });
+})
 
 //redirect users to homepage after loggin in
 router.get('/login', (req, res) => {
@@ -35,7 +49,7 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-//render one project to single project page
+//render one post to single post page
 router.get('/post/:id', (req, res) => {
     Post.findOne({
         where: {

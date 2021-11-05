@@ -54,10 +54,10 @@ router.get('/gif/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log('starting animation post route');
     try {
-        if(!req.body.animationData || !req.body.playbackSpeed || !req.body.title) {
-            res.status(400).json({response: "Request body must contain animationData, playbackSpeed, and a title"});
-            return;
-        }
+        // if(!req.body.animationData || !req.body.playbackSpeed || !req.body.title) {
+        //     res.status(400).json({response: "Request body must contain animationData, playbackSpeed, and a title"});
+        //     return;
+        // }
         console.log("saving post...");
         const path = await saveAnimation(req.body.animationData, req.body.playbackSpeed, req.body.width, req.body.height);
         console.log(path);

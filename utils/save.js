@@ -32,6 +32,10 @@ async function openFile(path) {
 // Generates a unique name
 async function saveAnimation(data, playbackSpeed, width, height) {
     try {
+
+    // Heroku fix
+    const animationsDir = path.normalize(path.join(__dirname, '../public/assets/animations'));
+    if(!fs.existsSync(animationsDir)) fs.mkdirSync(animationsDir);
     // Generate a unique filename
     const dirname = uuid.v1();
 

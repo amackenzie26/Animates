@@ -13,6 +13,7 @@ router.get('/', withAuth, (req, res) => {
             'id',
             'name',
             'description',
+            'animation_id',
             'date_created'
         ],
         include: [

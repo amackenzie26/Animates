@@ -14,7 +14,37 @@
 
     <body>
         {{!-- login modal --}}
-        <section id="loginModal" class="loginModal">
+            <!-- Modal -->
+            <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="login-form">
+                    <div>
+                        <label for="username-login">Username:</label>
+                        <input type="text" id="username-login" />
+                    </div>
+                    <div>
+                        <label for="password-login">Password:</label>
+                        <input type="password" id="password-login" />
+                    </div>
+                    <div>
+                        <button class="btn modalButton" id="submitLogin" type="submit">Login</button>
+                    </div>
+                </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        {{!-- <section id="loginModal" class="loginModal">
             <div class="modal-content">
                 <form class="login-form">
                     <div>
@@ -33,9 +63,46 @@
                     </div>
                 </form>
             </div>
-        </section>
+        </section> --}}
+
+
+
         {{!-- signup modal --}}
-        <section id="signupModal" class="signupModal">
+
+        <div class="modal fade" id="signupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form">
+                <div>
+                    <label for="username-signup">Username:</label>
+                    <input type="text" id="username-signup" />
+                </div>
+                <div>
+                    <label for="email-signup">Email:</label>
+                    <input type="text" id="email-signup" />
+                </div>
+                <div>
+                    <label for="password-signup">Password:</label>
+                    <input type="password" id="password-signup" />
+                </div>
+                <div>
+                    <button class="btn modalButton" id="signup" type="submit">Login</button>
+                </div>
+            </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- <section id="signupModal" class="signupModal">
             <div class="modal-content">
                 <form>
                     <div>
@@ -55,7 +122,7 @@
                     </div>
                 </form>
             </div>
-        </section>
+        </section> --}}
         {{!-- NAV BAR ON LEFT --}}
         <div class="container-fluid vh-100">
             <ul class="nav flex-column p-0 h-100 col-3">
@@ -89,8 +156,12 @@
                 </li>
                 {{!-- LOGIN LINK --}}
                 <li class="nav-item">
-                    <button id="login" class="btn btn-primary btn-no-style">Login</button>
-                </li>    
+                    <button id="login" class="btn btn-primary btn-no-style" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                </li>   
+                 {{!--SIGN UP LINK  --}}
+                <li>
+                    <button class="btn modalButton" id="signupRedirect" type="submit" data-bs-toggle="modal" data-bs-target="#signupModal">SIGN UP HERE</button>
+                </li>
                 {{/if}}
                 </nav>
             </ul>

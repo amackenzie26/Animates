@@ -42,33 +42,35 @@ function signupDisplay(event) {
 }
 
 // Hides login modal by clicking on window
-window.onclick = (function (event) {
-    event.preventDefault(); 
-    //console.log(event.target, loginModal, signupModal); 
-    if(isLoginActive){ 
-        signupModal.style.display = "none"
-        isLoginActive = false; 
-        console.log("deactivate login ", isLoginActive); 
-    }else { 
-        loginModal.style.display = "none"
-    }
+// window.onclick = (function (event) {
+//     event.preventDefault(); 
+//     //console.log(event.target, loginModal, signupModal); 
+//     if(isLoginActive){ 
+//         signupModal.style.display = "none"
+//         isLoginActive = false; 
+//         console.log("deactivate login ", isLoginActive); 
+//     }else { 
+//         loginModal.style.display = "none"
+//     }
 
-    if(isSignupActive){ 
-        loginModal.style.display = "none"
-        isSignupActive = false; 
-        console.log("deactivate signup ", isSignupActive); 
-    }else { 
-        signupModal.style.display = "none"
-    }
+//     if(isSignupActive){ 
+//         loginModal.style.display = "none"
+//         isSignupActive = false; 
+//         console.log("deactivate signup ", isSignupActive); 
+//     }else { 
+//         signupModal.style.display = "none"
+//     }
 
 
-    // if (event.target == signupModal) {
-    //     signupModal.style.display = "none"
-    // }
-})
+//     // if (event.target == signupModal) {
+//     //     signupModal.style.display = "none"
+//     // }
+// })
 
 //click to redirect to signup modal
+if (document.querySelector('#signupRedirect') !== null) {
 document.querySelector('#signupRedirect').addEventListener('click', signupDisplay);
+}
 
 //Hides signup modal by clicking on window
 // window.onclick = (function(event){

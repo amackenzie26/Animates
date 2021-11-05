@@ -1,6 +1,6 @@
 # Animates
 
-For this project we used Bootstrap, CSS, Javascript, Two.js, and local storage on the front-end, and Node.js, Express.js, NPM, MySql, Sequelize ORM, Handlebars, JQuery, and GIF Encoder on the backend to create an interactive drawing application. We researched and utilized a variety of technologies (listed below) in order to make the app interactive, purposeful and asthetically pleasing. We embraced a collaborative approach to the creation of this app by using pair programming. We maintained an organized task flow by utilizing Github's project cards, issue submissions and branch protection rules so that we could review and approve updates to the app.
+For this project we used Bootstrap, CSS, Javascript, Two.js, and local storage on the front-end, and Node.js, Express.js, NPM, MySql, Sequelize ORM, Handlebars, JQuery, and GIF Encoder on the backend to create an interactive drawing application. We researched and utilized a variety of technologies (listed below) in order to make the app interactive, useful, and fun. We used a collaborative approach to the creation of this app by using pair programming. We maintained an organized task flow by utilizing Github's project cards, issue submissions and branch protection rules so that we could review and approve updates to the app.
 
 ## App Overview
 
@@ -20,38 +20,34 @@ This app allows users to log in or sign up using a username and login or by prov
 * [Javascript](https://www.javascript.com/) - for routing and functionality
 * [jQuery](https://jquery.com/) - to add actions to the page
 * [Two.js](https://two.js.org/) - to add actions to the page
-* [Materialize]
+* []
 * [Git](https://git-scm.com/) - to track changes and push commits
 * [GitHub](github.com) - to host the repository and deploy with GitHub pages
-* [Materialize]
-* [Materialize]
-* [Materialize]
+* []
+* []
+* []
 
 ## App Visual
 
-<img src="assets\images\AppSnip.JPG" alt="Screenshot of App search"> 
+<img src="" alt="Screenshot of App search"> 
 
 ## See it in Action!
 
-* [https://youtu.be/_6-XI74WkyM](Enjoy!)
+
 
 ## Deployed Link
 
-* [https://amackenzie26.github.io/drink-rating-app/](#)
+
 
 ## Future Developments
-* Update storage to a system where ratings can be submitted globally and the average rating (of all users) for each drink will appear beneath the thumbnail of the drink
-* Add social media component where users can follow one another, react and comment on each other's drink check-ins, and send meet-up invites for local venues
-* Enable check-in services at local bars and restaurants where the user can tag the location where they are enjoying their drink and even provide a shout-out to the bartender who created the cocktail
-* Provide photo-capabilities so that users can take a picture of their drink and submit it globally with their rating
-* Create badges (awards/accomplishments) that users can earn by checking in drinks based on a variety of criteria and displaying these badges to their dashboard timeline -- ie: "The Trailblazer" badge:  "Congrats!  You were the first to check-in this drink at this location!  Don't forget to leave a review."
+
 
 ## View Our Presentation
 
-* [https://docs.google.com/presentation/d/1LHj3-_XvBGqtzaWRXGAeHQdskzWiP-3AZoW26FeOLsM/edit?usp=sharing](#)
+
 
 ## Authors
 
-* Andres Liu [https://www.linkedin.com/in/andresliu22/]
+* Adam Kruschwitz [https://www.linkedin.com/in/adamkruschwitz/]
+* Matt Weichel [https://www.linkedin.com/in/mattweichel/]
 * Alec Mackenzie [https://www.linkedin.com/in/alec-mackenzie-5119a5b8/]
-* Kiri Smith [https://www.linkedin.com/in/kiri-lynne-smith/]

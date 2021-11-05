@@ -43,9 +43,9 @@ a {
     color: var(--light);
     background-color: var(--primary);
     font-weight: bold;
-    margin: 20px;
+    width: 100%;
 }
-.nav-item-hoverable:hover {
+.nav-item:hover {
     background-color: var(--primary-hover);
 }
 
@@ -61,12 +61,6 @@ a:hover, .blog-title {
     color: var(--light);
 }
 
-.title {
-    color: var(--secondary-color);
-    font-size: 25px;
-    margin: 25px;
-    padding: 10px;
-}
 
 button {
     background-color: var(--primary);
@@ -76,10 +70,7 @@ button {
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
-    margin-left: 75px;
-    margin-bottom: 5px;
 }
-
 button:hover{
     background-color: var(--secondary-color);
 }
@@ -180,3 +171,5 @@ main {
     animation-timing-function: linear;
     box-shadow: 10px 10px 5px var(--dark);
 }
+
+

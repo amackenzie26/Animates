@@ -36,8 +36,8 @@ router.get('/signup', (req, res) => {
 });
 
 //render one project to single project page
-router.get('/project/:id', (req, res) => {
-    Project.findOne({
+router.get('/post/:id', (req, res) => {
+    Post.findOne({
         where: {
             id: req.params.id
         },
@@ -55,10 +55,10 @@ router.get('/project/:id', (req, res) => {
         }
 
         //serialize
-        const project = dbPostData.get({ plain: true});
+        const post = dbPostData.get({ plain: true});
 
         //pass data to template
-        res.render('single-project', { project, loggedIn: req.session.loggedIn});
+        res.render('single-project', { post, loggedIn: req.session.loggedIn});
     })
     .catch(err => {
         console.log(err);

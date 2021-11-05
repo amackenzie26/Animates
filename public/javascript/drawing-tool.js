@@ -37,7 +37,9 @@ addFrame();
 function startDraw(event) {
 
     // Set initial position
-    lastPosition.set(event.clientX, event.clientY);
+    const x = event.clientX - $(event.target).closest('#draw-space').offset().left;
+    const y = event.clientY - $(event.target).closest('#draw-space').offset().top;
+    lastPosition.set(x, y);
 
     // Add event listeners
     drawSpace.mouseup(endDraw);
@@ -47,7 +49,9 @@ function startDraw(event) {
 
 function draw(event) {
     // Get the current position as a Two.Anchor
-    const curPosition = new Two.Anchor(event.clientX, event.clientY);
+    const x = event.clientX - $(event.target).closest('#draw-space').offset().left;
+    const y = event.clientY - $(event.target).closest('#draw-space').offset().top;
+    const curPosition = new Two.Anchor(x, y);
     
     // If a line hasn't been created, start one. otherwise, add the new position to the line.
     const frame = frames.getIndex(curFrame);
@@ -214,15 +218,13 @@ async function save() {
         svgs.push(drawSpace.html());
     });
 
-    console.log(svgs.toString());
+    // console.log(svgs.toString());
 
-    const response = await fetch('/api/animations/', {
+    const response = await fetch('/api/animations', {
         method: 'POST',
         body: {
             animationData: svgs.toString(),
-            // TODO: add user id as author_id
-
-            
+            playbackSpeed: Math.floor(1000.0 / FPS.val())
         },
         headers: { 'Content-Type': 'application/json' }
     });

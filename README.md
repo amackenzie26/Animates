@@ -33,9 +33,9 @@ This app allows users to log in or sign up using a username and login or by prov
 
 ## App Visual
 
-<img src="/Users/alecmackenzie/Desktop/Animates/images/animatedemo.gif" alt="Screenshot of Drawing Tool/Application"> 
+<img src="/Users/alecmackenzie/Desktop/Animates/images/animatedemo.gif" alt="Screenshot of Drawing Tool/Application" width="200" height="200"/> 
 
-<img src="/Users/alecmackenzie/Desktop/Animates/images/exploredemo.gif" alt="Screenshot of Drawing Tool/Application"> 
+<img src="/Users/alecmackenzie/Desktop/Animates/images/exploredemo.gif" alt="Screenshot of Drawing Tool/Application" width="200" height="400"/> 
 
 
 ## Deployed Link

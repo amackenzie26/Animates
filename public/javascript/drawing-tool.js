@@ -11,6 +11,7 @@ const FPS = $("#fps");
 const saveBtn = $("#save");
 const loadBtn = $("#load");
 const loadData = $("#data");
+const title = $("#title");
 let animation;
 
 
@@ -224,6 +225,7 @@ async function save() {
         body: JSON.stringify({
             "animationData": svgs.toString(),
             "playbackSpeed": Math.floor(1000.0 / FPS.val()),
+            title: title.val(),
             width: $("#draw-space").width(),
             height: $("#draw-space").height()
         }),

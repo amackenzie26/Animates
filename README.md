@@ -4,7 +4,7 @@ For this project we used Bootstrap, CSS, Javascript, Two.js, and local storage o
 
 ## App Overview
 
-This app allows users to log in or sign up using a username and login or by providing and email and creating a username and password. Once logged in, the user may direct themselves using the navigation panel on the left. ***Additions
+This app allows users to log in or sign up using a username and login or by providing and email and creating a username and password. Once logged in, the user may direct themselves using the navigation panel on the left. From the navigation bar the user can access the explore page in which they can make animations. 
 
 ## User Stories
 
@@ -16,20 +16,24 @@ This app allows users to log in or sign up using a username and login or by prov
 
 * [Visual Studio Code](https://code.visualstudio.com/) - to create and modify the code on my local device
 * [Bootstrap](https://getbootstrap.com/) - to structure html elements
-* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) - to style handlebars docs
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) - for styling of handlebars files
 * [Javascript](https://www.javascript.com/) - for routing and functionality
 * [jQuery](https://jquery.com/) - to add actions to the page
-* [Two.js](https://two.js.org/) - to add actions to the page
-* []
+* [Two.js](https://two.js.org/) - to contruct an animation tool
+* [Node.js](https://nodejs.org/en/) - to run our server
+* [NPM](https://www.npmjs.com/) - to utilize packages
+* [Express.js](https://expressjs.com/) - for web framework
+* [MySql](https://www.mysql.com/) - for database access
+* [Sequelize ORM](https://sequelize.org/) - For SQL server access
+* [Handlebars](https://handlebarsjs.com/) - For design templating
+* [GIF Encoder (svg2img)](https://www.npmjs.com/package/svg2img) - for in-memory conversion of images to svg
 * [Git](https://git-scm.com/) - to track changes and push commits
 * [GitHub](github.com) - to host the repository and deploy with GitHub pages
-* []
-* []
-* []
+* [Heroku](Heroku.com) - to host the repository and deploy 
 
 ## App Visual
 
-<img src="" alt="Screenshot of App search"> 
+<img src="" alt="Screenshot of Drawing Tool/Application"> 
 
 ## See it in Action!
 
@@ -41,6 +45,7 @@ This app allows users to log in or sign up using a username and login or by prov
 
 ## Future Developments
 
+We plan to develop further a more extensive Explore page. We also plan to add more social media components such as a like feature and a friends list. A galleries feature will eventually have a polished interactive user interface. 
 
 ## View Our Presentation
 

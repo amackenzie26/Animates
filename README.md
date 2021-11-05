@@ -35,9 +35,6 @@ This app allows users to log in or sign up using a username and login or by prov
 
 <img src="" alt="Screenshot of Drawing Tool/Application"> 
 
-## See it in Action!
-
-
 
 ## Deployed Link
 

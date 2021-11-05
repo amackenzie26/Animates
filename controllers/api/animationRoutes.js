@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { openFile, saveAnimation, saveFile, deleteFile } = require('../../utils/save');
 const { Animation, User } = require('../../models');
+const path = require('path');
+const { encode } = require('punycode');
 
 // GET all animations
 router.get('/', async (req, res) => {
@@ -17,7 +19,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET a given animation
+// GET a given animation (svg)
 router.get('/:id', async (req, res) => {
     try {
         const animation = await Animation.findByPk(req.params.id, {
@@ -34,6 +36,20 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/gif/:id', async (req, res) => {
+    try {
+        const animation = await Animation.findByPk(req.params.id);
+        if(!animation) {
+            res.status(404).json({response: "Animation not found"});
+            return;
+        }
+        res.status(200).json({response: "Gif found", path: animation.path + ".gif"});
+        
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 // POST animation (given stringified JSON from view in body)
 router.post('/', async (req, res) => {
     try {
@@ -42,16 +58,18 @@ router.post('/', async (req, res) => {
             return;
         }
         console.log("saving post...");
-        const path = await saveAnimation(req.body.animationData);
+        const path = await saveAnimation(req.body.animationData, req.body.playbackSpeed);
         console.log(path);
         const animation = Animation.build({
             path: path,
+            playbackSpeed: req.body.playbackSpeed,
             author_id: req.body.author_id
         });
         await animation.save();
         res.status(200).json({response: "New animation saved successfully."});
     } catch (err) {
         res.status(500).json(err);
+        console.log(err);
     }
 });
 

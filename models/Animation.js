@@ -12,8 +12,8 @@ Animation.init(
             autoIncrement: true,
             allowNull: false
         },
-        uses: {
-            type: DataTypes.INTEGER,
+        title: {
+            type: DataTypes.STRING(50),
             defaultValue: 0,
             allowNull: false
         },
